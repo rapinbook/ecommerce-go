@@ -5,6 +5,7 @@ import (
 	"os"
 
 	"github.com/rapinbook/ecommerce-go/config"
+	"github.com/rapinbook/ecommerce-go/pkg/databases"
 )
 
 func envPath() string {
@@ -20,4 +21,6 @@ func main() {
 	fmt.Println(cfg.Db())
 	fmt.Println(cfg.JWT())
 	fmt.Println(cfg.App())
+	db := databases.DBConnect(cfg.Db())
+	fmt.Printf("%#v", db)
 }
