@@ -13,6 +13,7 @@ import (
 
 type IServer interface {
 	Start()
+	GetServer() *server
 }
 
 type server struct {
@@ -21,8 +22,16 @@ type server struct {
 	db  *sqlx.DB
 }
 
+func (s *server) GetServer() *server {
+	return s
+}
+
 func (s *server) Start() {
-	// v1 := s.app.Group("v1")
+	v1 := s.app.Group("v1")
+	// modules
+	modules := NewModule(v1, s)
+
+	modules.MonitorModule()
 
 	// Graceful Shutdown
 	c := make(chan os.Signal, 1)
